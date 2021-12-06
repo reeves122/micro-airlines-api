@@ -9,28 +9,20 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class City {
+public class Plane {
 
     @Id
     @GeneratedValue
-    @Column(name = "city_id")
+    @Column(name = "plane_id")
     private Long id;
 
     @Column(name="name")
     private String name;
 
-    @Column(name="country")
-    private String country;
-
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "plane")
     private List<Job> jobs;
 
     @ManyToOne
     @JoinColumn(name="player_id")
     private Player player;
-
-    public City(String name, String country) {
-        this.name = name;
-        this.country = country;
-    }
 }
