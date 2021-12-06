@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'microairlines'
+      MYSQL_ROOT_PASSWORD: 'Password123'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - microairlines:/var/lib/mysql
+volumes:
+  microairlines:
