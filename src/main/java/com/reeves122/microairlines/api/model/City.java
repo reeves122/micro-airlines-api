@@ -1,5 +1,6 @@
 package com.reeves122.microairlines.api.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +28,7 @@ public class City {
 
     @ManyToOne
     @JoinColumn(name="player_id")
+    @JsonBackReference
     private Player player;
 
     public City(String name, String country) {

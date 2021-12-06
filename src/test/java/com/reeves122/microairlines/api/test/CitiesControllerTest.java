@@ -40,16 +40,18 @@ public class CitiesControllerTest {
     @Test
     @DirtiesContext
     public void shouldCreateNew() throws Exception {
-        mockMvc.perform(post("/api/v1/cities"))
+        mockMvc.perform(post("/api/v1/players"));
+        mockMvc.perform(post("/api/v1/cities?player_id=1"))
                 .andExpect(status().isOk());
     }
 
     @Test
     @DirtiesContext
     public void shouldReturnById() throws Exception {
-        mockMvc.perform(post("/api/v1/cities"));
+        mockMvc.perform(post("/api/v1/players"));
 
-        mockMvc.perform(get("/api/v1/cities/1"))
+        mockMvc.perform(post("/api/v1/cities?player_id=1"));
+        mockMvc.perform(get("/api/v1/cities/2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("New York")));
     }
