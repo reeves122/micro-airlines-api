@@ -32,7 +32,9 @@ public class PlayersController {
     }
 
     @PostMapping()
-    public void createPlayer(){
-        playerRepository.save(new Player(BigDecimal.valueOf(100.0)));
+    public ResponseEntity<Player> createPlayer(){
+        Player player = new Player(BigDecimal.valueOf(100.0));
+        playerRepository.save(player);
+        return new ResponseEntity<>(player, HttpStatus.CREATED);
     }
 }

@@ -1,8 +1,6 @@
 package com.reeves122.microairlines.api.controller;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,17 +30,24 @@ public class CitiesController {
 
     @GetMapping("/{id}")
     public ResponseEntity<City> getCityById(@PathVariable Long id) {
-        Optional<City> city = cityRepository.findById(id);
-        return city.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        City city = cityRepository.findById(id).orElse(null);
+        if (city == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(city, HttpStatus.OK);
     }
 
     @PostMapping()
-    public void createCity(@RequestParam(name="player_id") Long playerId){
+    public ResponseEntity<City> createCity(@RequestParam(name="player_id") Long playerId){
         Player player = playerRepository.findById(playerId).orElse(null);
+        if (player == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
         City city = new City("New York", "United States");
         city.setPlayer(player);
         cityRepository.save(city);
-    }
 
+        return new ResponseEntity<>(city, HttpStatus.CREATED);
+    }
 }
